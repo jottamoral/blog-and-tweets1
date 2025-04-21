@@ -12,26 +12,26 @@
                 </div>
             </div>
         </div>
-    </div>
-        <div class="card">
-            <div class="card-header">{{ $user -> name }}</div>
-                <div class="card-body">
-                    @if(session('status'))
-                        <div class="alert alert-succes" rol="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">{{ $user -> name }}</div>
+                    <div class="card-body">
+                        @if(session('status'))
+                            <div class="alert alert-succes" rol="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
 
-                    <p>Publish Entries</p>
-                    <ul>
-                        @foreach($entries as $entry)
-                            <li>
-                                <a href="{{ url('entries/'.$entry -> id)}}">
-                                    {{ $entry -> title }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                        <p>Publish Entries</p>
+                        <ul>
+                            @foreach($entries as $entry)
+                                <li>
+                                    <a href="{{ $entry -> getUrl() }}">
+                                        {{ $entry -> title }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
                 </div>
             </div>
         </div>

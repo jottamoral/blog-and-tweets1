@@ -22,7 +22,7 @@ class EntryController extends Controller
     {
         //dd($request -> all());
         $validateData = $request -> validate([
-            'title' => 'required |min:7|max:255| unique:entries',
+            'title' => 'required |min:7|max:255| unique:entries,id,'.$entry -> id,
             'content' => 'required |min:25|max:3000'
         ]);
 
@@ -38,21 +38,31 @@ class EntryController extends Controller
 
     public function edit(Entry $entry)
     {
+        $this -> authorize('update', $entry);
+        // if (auth() -> id() !== $entry -> user_id){
+        //     return redirect('/');
+        // }
+        
         return view('entries.edit', compact('entry'));
     }
 
     public function update(Request $request, Entry $entry)
     {
-        $validateData = $request -> validate([
+        $this -> authorize('update', $entry);
+        // if (auth() -> id() !== $entry -> user_id){
+        //     return redirect('/');
+        // }
+
+        $validateData = $request->validate([
             'title' => 'required |min:7|max:255| unique:entries',
             'content' => 'required |min:25|max:3000'
         ]);
-
-        $entry -> title = $validateData['title'];
-        $entry -> content = $validateData['content'];
-        $entry -> save(); //UPDATE 
-
-        $status = 'Your Entry Has been updated successfully';
-        return back() -> with(compact('status'));
+ 
+        $entry->title = $validateData['title'];
+        $entry->content = $validateData['content'];
+        $entry->save(); //UPDATE
+ 
+        $status = 'your entry has been updated successfully';
+        return back()->with(compact('status'));
     }
 }

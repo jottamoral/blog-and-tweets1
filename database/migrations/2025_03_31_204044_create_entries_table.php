@@ -20,6 +20,8 @@ return new class extends Migration
             //Autor
             $table->unsignedBigInteger(column: 'user_id');
             $table->foreign(columns: 'user_id')->references(columns: 'id')->on(table: 'users');
+            $table ->string('slug');
+
             $table->timestamps();
         });
     }

@@ -14,14 +14,18 @@
                         </div>
                     @endif
 
-                    <p>My Entries</p>
-                    <ul>
-                        @foreach ($entries as $entry)
-                            <li>
-                                <a href="{{ url('entries/'.$entry ->id)}}">{{ $entry -> title }}</a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @if ($entries -> isEmpty())
+                        <p>You don't have any entries yet</p>
+                    @else
+                        <p>My Entries</p>
+                        <ul>
+                            @foreach ($entries as $entry)
+                                <li>
+                                    <a href="{{ url('entries/'.$entry ->id)}}">{{ $entry -> title }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>
